@@ -1,10 +1,10 @@
 package injector
 
 import (
-	"GoBlogClean/article/handler"
 	"GoBlogClean/config"
 	"GoBlogClean/models"
 	"GoBlogClean/article/usecase"
+	"GoBlogClean/article/handler"
 	"GoBlogClean/article/repository"
 )
 
