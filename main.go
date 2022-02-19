@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 
-	"GoBlogClean/article/handler"
 	"GoBlogClean/injector"
+	"GoBlogClean/article/handler"
 )
 
 func main() {
