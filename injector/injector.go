@@ -6,5 +6,5 @@ import (
 
 func InjectDB() config.DBHandler {
 	dbHandler := config.NewDBHandler()
-	return dbHandler
+	return *dbHandler
 }

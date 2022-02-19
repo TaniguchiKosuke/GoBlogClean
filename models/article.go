@@ -18,3 +18,19 @@ type Article struct {
 	User     User      `json:"user"`
 	Comments []Comment `json:"comment"`
 }
+
+type ArticleRepository interface {
+	PostArticle(*Article, error)
+	GetArticleByID(*Article, error)
+	GetArticles([]*Article, error)
+	UpdateArticle(*Article, error)
+	DeleteArticle(*Article, error)
+}
+
+type ArticleUsecase interface {
+	PostArticle(*Article, error)
+	GetArticleByID(*Article, error)
+	GetArticles([]*Article, error)
+	UpdateArticle(*Article, error)
+	DeleteArticle(*Article, error)	
+}
