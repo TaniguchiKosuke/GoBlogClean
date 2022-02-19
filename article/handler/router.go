@@ -4,6 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitRouting(engine *gin.Engine, handler *ArticleHandler) {
+func InitArticleRouting(engine *gin.Engine, handler *ArticleHandler) {
 	engine.GET("/")
 }

@@ -10,6 +10,6 @@ import (
 func main() {
 	articleHandler := injector.InjectArticleHandler()
 	engine := gin.Default()
-	handler.InitRouting(engine, &articleHandler)
+	handler.InitArticleRouting(engine, &articleHandler)
 	engine.Run(":8080")
 }
