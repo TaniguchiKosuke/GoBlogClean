@@ -15,3 +15,17 @@ type User struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
+
+type UserRepository interface {
+	// SignUp(*User) (*User, error)
+	// Login(*User) (*User, error)
+	// Logout(*User) (*User, error)
+	// UpdateUser(*User) (*User, error)
+}
+
+type UserUsecase interface {
+	// SignUp(*User) (*User, error)
+	// Login(*User) (*User, error)
+	// Logout(*User) (*User, error)
+	// UpdateUser(*User) (*User, error)
+}
