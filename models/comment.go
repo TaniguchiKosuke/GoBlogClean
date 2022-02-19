@@ -6,12 +6,13 @@ import (
 	"gorm.io/gorm"
 )
 
-type User struct {
-	ID        string         `json:"id" gorm:"primaryKey"`
+type Comment struct {
+	ID        int            `json:"id" gorm:"primaryKey"`
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `json:"deleted_at"`
 
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Content string `json:"content"`
+	UserID  string `json:"user_id"`
+	User    User   `json:"user"`
 }
