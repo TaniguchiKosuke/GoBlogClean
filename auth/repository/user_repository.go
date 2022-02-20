@@ -12,3 +12,11 @@ type userRepository struct {
 func NewUserRepository(dbHandler *config.DBHandler) models.UserRepository {
 	return &userRepository{*&dbHandler}
 }
+
+func (ur *userRepository) Signup(user *models.User) (*models.User, error) {
+	if err := ur.dbHandler.Conn.Create(&user).Error; err != nil {
+		return user, err
+	}
+
+	return user, nil
+}

@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
+	"github.com/google/uuid"
 )
 
 type UserHandler struct {
@@ -33,7 +34,18 @@ func (uh *UserHandler) Signup(c *gin.Context) {
 	}
 	user.Password = string(hashedBytePassword)
 
-	if err := uh.userUsecase.SignUp(user); err != nil {
+	u, err := uuid.NewRandom()
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	uuidStr := u.String()
+
+	user.ID = uuidStr
+
+	if err := uh.userUsecase.Signup(user); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return

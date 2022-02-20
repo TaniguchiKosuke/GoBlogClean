@@ -12,7 +12,7 @@ func InjectUserRepository() models.UserRepository {
 }
 
 func InjectUserUsecase() models.UserUsecase {
-	return usecase.NewUserUsecase(InjectUserRepository)
+	return usecase.NewUserUsecase(InjectUserRepository())
 }
 
 func InjectUserHandler() handler.UserHandler {

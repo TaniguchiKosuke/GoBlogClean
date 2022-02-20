@@ -17,14 +17,14 @@ type User struct {
 }
 
 type UserRepository interface {
-	SignUp(*User) (*User, error)
+	Signup(*User) (*User, error)
 	// Login(*User) (*User, error)
 	// Logout(*User) (*User, error)
 	// UpdateUser(*User) (*User, error)
 }
 
 type UserUsecase interface {
-	SignUp(*User) error
+	Signup(*User) error
 	// Login(*User) (*User, error)
 	// Logout(*User) (*User, error)
 	// UpdateUser(*User) (*User, error)
