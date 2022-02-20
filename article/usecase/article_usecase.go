@@ -12,5 +12,18 @@ func NewArticleUsecase(articleRepository models.ArticleRepository) models.Articl
 
 func (au *articleUsecase) PostArticle(article *models.Article) error {
 	_, err := au.articleRepository.PostArticle(article)
-	return err
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (au *articleUsecase) GetArticles() ([]*models.Article, error) {
+	articles, err := au.articleRepository.GetArticles()
+	if err != nil {
+		return articles, err
+	}
+
+	return articles, nil
 }

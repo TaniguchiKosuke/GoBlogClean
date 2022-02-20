@@ -20,3 +20,12 @@ func (ar *articleRepository) PostArticle(article *models.Article) (*models.Artic
 
 	return article, nil
 }
+
+func (ar *articleRepository) GetArticles() ([]*models.Article, error) {
+	var articles []*models.Article
+	if err := ar.Conn.Find(&articles).Error; err != nil {
+		return articles, err
+	}
+
+	return articles, nil
+}
