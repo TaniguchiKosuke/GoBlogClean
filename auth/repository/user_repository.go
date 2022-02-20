@@ -10,7 +10,7 @@ type userRepository struct {
 }
 
 func NewUserRepository(dbHandler *config.DBHandler) models.UserRepository {
-	return &userRepository{*&dbHandler}
+	return &userRepository{dbHandler}
 }
 
 func (ur *userRepository) Signup(user *models.User) (*models.User, error) {
@@ -19,4 +19,13 @@ func (ur *userRepository) Signup(user *models.User) (*models.User, error) {
 	}
 
 	return user, nil
+}
+
+func (ur *userRepository) GetUsers() ([]*models.User, error) {
+	var users []*models.User
+	if err := ur.dbHandler.Conn.Find(&users).Error; err != nil {
+		return users, err
+	}
+
+	return users, nil
 }

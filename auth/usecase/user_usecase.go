@@ -18,3 +18,12 @@ func (uu *userUsecase) Signup(user *models.User) error {
 
 	return nil
 }
+
+func (uu *userUsecase) GetUsers() ([]*models.User, error) {
+	users, err := uu.userRepository.GetUsers()
+	if err != nil {
+		return users, err
+	}
+
+	return users, err
+}

@@ -57,3 +57,14 @@ func (uh *UserHandler) Signup(c *gin.Context) {
 func (uh *UserHandler) Login(c *gin.Context) {
 
 }
+
+func (uh *UserHandler) GetUsers(c *gin.Context) {
+	users, err := uh.userUsecase.GetUsers()
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, users)
+}

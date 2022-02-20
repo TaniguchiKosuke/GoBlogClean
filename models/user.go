@@ -21,6 +21,7 @@ type UserRepository interface {
 	// Login(*User) (*User, error)
 	// Logout(*User) (*User, error)
 	// UpdateUser(*User) (*User, error)
+	GetUsers() ([]*User, error)
 }
 
 type UserUsecase interface {
@@ -28,4 +29,5 @@ type UserUsecase interface {
 	// Login(*User) (*User, error)
 	// Logout(*User) (*User, error)
 	// UpdateUser(*User) (*User, error)
+	GetUsers() ([]*User, error)
 }
