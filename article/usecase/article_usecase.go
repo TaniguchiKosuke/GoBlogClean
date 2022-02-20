@@ -27,3 +27,12 @@ func (au *articleUsecase) GetArticles() ([]*models.Article, error) {
 
 	return articles, nil
 }
+
+func (au *articleUsecase) GetArticleByID(articleID int) (*models.Article, error) {
+	article, err := au.articleRepository.GetArticleByID(articleID)
+	if err != nil {
+		return article, err
+	}
+
+	return article, nil
+}

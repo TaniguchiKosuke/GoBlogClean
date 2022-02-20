@@ -29,3 +29,12 @@ func (ar *articleRepository) GetArticles() ([]*models.Article, error) {
 
 	return articles, nil
 }
+
+func (ar *articleRepository) GetArticleByID(articleID int) (*models.Article, error) {
+	var article *models.Article
+	if err := ar.Conn.Where("id = ?", articleID).Find(&article).Error; err != nil {
+		return article, err
+	}
+
+	return article, nil
+}

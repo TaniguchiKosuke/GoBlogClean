@@ -4,6 +4,7 @@ import (
 	"GoBlogClean/models"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,13 +21,13 @@ func (ah *ArticleHandler) PostArticle(c *gin.Context) {
 	var article *models.Article
 	if err := c.BindJSON(&article); err != nil {
 		log.Println(err)
-		c.JSON(http.StatusBadRequest, article)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
 	if err := ah.articleUsecase.PostArticle(article); err != nil {
 		log.Println(err)
-		c.JSON(http.StatusBadRequest, article)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -37,9 +38,27 @@ func (ah *ArticleHandler) GetArticles(c *gin.Context) {
 	articles, err := ah.articleUsecase.GetArticles()
 	if err != nil {
 		log.Println(err)
-		c.JSON(http.StatusBadRequest, articles)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
 	c.JSON(http.StatusOK, articles)
+}
+
+func (ah *ArticleHandler) GetArticleByID(c *gin.Context) {
+	articleIDString := c.Param("id")
+	articleID, err := strconv.Atoi(articleIDString)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, err.Error())
+	}
+
+	article, err := ah.articleUsecase.GetArticleByID(articleID)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, article)
 }

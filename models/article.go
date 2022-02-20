@@ -21,7 +21,7 @@ type Article struct {
 
 type ArticleRepository interface {
 	PostArticle(article *Article) (*Article, error)
-	// GetArticleByID(articleID string) (*Article, error)
+	GetArticleByID(articleID int) (*Article, error)
 	GetArticles() ([]*Article, error)
 	// UpdateArticle(article *Article) (*Article, error)
 	// DeleteArticle(article *Article) (*Article, error)
@@ -30,7 +30,7 @@ type ArticleRepository interface {
 
 type ArticleUsecase interface {
 	PostArticle(article *Article) error
-	// GetArticleByID(articleID string) (*Article, error)
+	GetArticleByID(articleID int) (*Article, error)
 	GetArticles() ([]*Article, error)
 	// UpdateArticle(article *Article) (*Article, error)
 	// DeleteArticle(article *Article) (*Article, error)
