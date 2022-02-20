@@ -5,5 +5,5 @@ import (
 )
 
 func InitArticleRouting(engine *gin.Engine, handler *ArticleHandler) {
-	engine.GET("/")
+	engine.POST("/article/create", handler.PostArticle)
 }

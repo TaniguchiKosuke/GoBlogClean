@@ -14,13 +14,13 @@ type Article struct {
 
 	Title    string    `json:"title"`
 	Content  string    `json:"content"`
-	UserID   string    `json:"user_id"`
-	User     User      `json:"user"`
-	Comments []Comment `json:"comment"`
+	AuthorID string    `json:"user_id"`
+	Author   User      `json:"user"`
+	Comments []Comment `json:"comment" gorm:"foreignKey:AuthorID"`
 }
 
 type ArticleRepository interface {
-	// PostArticle(article *Article) (*Article, error)
+	PostArticle(article *Article) (*Article, error)
 	// GetArticleByID(articleID string) (*Article, error)
 	// GetArticles() ([]*Article, error)
 	// UpdateArticle(article *Article) (*Article, error)
@@ -29,7 +29,7 @@ type ArticleRepository interface {
 }
 
 type ArticleUsecase interface {
-	// PostArticle(article *Article) (*Article, error)
+	PostArticle(article *Article) error
 	// GetArticleByID(articleID string) (*Article, error)
 	// GetArticles() ([]*Article, error)
 	// UpdateArticle(article *Article) (*Article, error)
