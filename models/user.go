@@ -12,6 +12,7 @@ type User struct {
 	UpdatedAt time.Time      `json:"updated_at"`
 	DeletedAt gorm.DeletedAt `json:"deleted_at"`
 
+	JwtToken string `json:"jwt_token"`
 	Username string `json:"username"`
 	Password string `json:"password"`
 }

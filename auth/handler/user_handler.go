@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"GoBlogClean/common"
 	"GoBlogClean/models"
 	"log"
 	"net/http"
@@ -32,6 +33,7 @@ func (uh *UserHandler) Signup(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
+
 	user.Password = string(hashedBytePassword)
 
 	u, err := uuid.NewRandom()
@@ -42,8 +44,16 @@ func (uh *UserHandler) Signup(c *gin.Context) {
 	}
 
 	uuidStr := u.String()
-
 	user.ID = uuidStr
+	// よく考えたらJWTはDBに保存しないかも
+	jwtToken, err := common.CreateJWTToken(user)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	user.JwtToken = jwtToken
 
 	if err := uh.userUsecase.Signup(user); err != nil {
 		log.Println(err)
@@ -51,7 +61,7 @@ func (uh *UserHandler) Signup(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"status": "successed"})
+	c.JSON(http.StatusOK, gin.H{"Token": " succeeded"})
 }
 
 func (uh *UserHandler) Login(c *gin.Context) {
