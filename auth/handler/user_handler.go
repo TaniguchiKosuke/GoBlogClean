@@ -1,14 +1,14 @@
 package handler
 
 import (
-	"GoBlogClean/common"
-	"GoBlogClean/models"
 	"log"
 	"net/http"
-
+	
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
+
+	"GoBlogClean/models"
 )
 
 type UserHandler struct {
@@ -45,15 +45,6 @@ func (uh *UserHandler) Signup(c *gin.Context) {
 
 	uuidStr := u.String()
 	user.ID = uuidStr
-	// よく考えたらJWTはDBに保存しないかも
-	jwtToken, err := common.CreateJWTToken(user)
-	if err != nil {
-		log.Println(err)
-		c.JSON(http.StatusBadRequest, err.Error())
-		return
-	}
-
-	user.JwtToken = jwtToken
 
 	if err := uh.userUsecase.Signup(user); err != nil {
 		log.Println(err)
