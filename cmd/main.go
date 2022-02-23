@@ -3,9 +3,9 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 
-	"GoBlogClean/injector"
 	article_handler "GoBlogClean/article/handler"
 	auth_handler "GoBlogClean/auth/handler"
+	"GoBlogClean/injector"
 )
 
 func main() {

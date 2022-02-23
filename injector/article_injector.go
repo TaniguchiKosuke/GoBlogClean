@@ -1,10 +1,10 @@
 package injector
 
 import (
-	"GoBlogClean/models"
-	"GoBlogClean/article/usecase"
 	"GoBlogClean/article/handler"
 	"GoBlogClean/article/repository"
+	"GoBlogClean/article/usecase"
+	"GoBlogClean/models"
 )
 
 func InjectArticleRepository() models.ArticleRepository {

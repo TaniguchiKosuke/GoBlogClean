@@ -1,8 +1,8 @@
 package injector
 
 import (
-	"GoBlogClean/auth/repository"
 	"GoBlogClean/auth/handler"
+	"GoBlogClean/auth/repository"
 	"GoBlogClean/auth/usecase"
 	"GoBlogClean/models"
 )
