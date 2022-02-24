@@ -14,7 +14,7 @@ func NewUserRepository(dbHandler *config.DBHandler) auth.UserRepository {
 	return &userRepository{dbHandler}
 }
 
-func (ur *userRepository) Signup(user *models.User) (*models.User, error) {
+func (ur *userRepository) CreateUser(user *models.User) (*models.User, error) {
 	if err := ur.dbHandler.Conn.Create(&user).Error; err != nil {
 		return user, err
 	}

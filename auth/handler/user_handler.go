@@ -47,7 +47,7 @@ func (uh *UserHandler) Signup(c *gin.Context) {
 	uuidStr := u.String()
 	user.ID = uuidStr
 
-	if err := uh.userUsecase.Signup(user); err != nil {
+	if err := uh.userUsecase.CreateUser(user); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
