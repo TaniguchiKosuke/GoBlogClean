@@ -13,8 +13,8 @@ func NewUserUsecase(userRepository auth.UserRepository) auth.UserUsecase {
 	return &userUsecase{userRepository: userRepository}
 }
 
-func (uu *userUsecase) Signup(user *models.User) error {
-	_, err := uu.userRepository.Signup(user)
+func (uu *userUsecase) CreateUser(user *models.User) error {
+	_, err := uu.userRepository.CreateUser(user)
 	if err != nil {
 		return err
 	}
@@ -29,4 +29,13 @@ func (uu *userUsecase) GetUsers() ([]*models.User, error) {
 	}
 
 	return users, err
+}
+
+func (uu *userUsecase) GetUserByID(userID string) (*models.User, error) {
+	user, err := uu.userRepository.GetUserByID(userID)
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
 }

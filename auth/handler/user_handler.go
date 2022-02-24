@@ -9,6 +9,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 
 	"GoBlogClean/auth"
+	"GoBlogClean/common"
 	"GoBlogClean/models"
 )
 
@@ -47,17 +48,46 @@ func (uh *UserHandler) Signup(c *gin.Context) {
 	uuidStr := u.String()
 	user.ID = uuidStr
 
-	if err := uh.userUsecase.Signup(user); err != nil {
+	if err := uh.userUsecase.CreateUser(user); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"Token": " succeeded"})
+	c.JSON(http.StatusOK, gin.H{"status": " succeeded"})
 }
 
 func (uh *UserHandler) Login(c *gin.Context) {
+	var user *models.User
+	if err := c.BindJSON(&user); err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
 
+	userModel, err := uh.userUsecase.GetUserByID(user.ID)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if err := bcrypt.CompareHashAndPassword([]byte(userModel.Password), []byte(user.Password)); err != nil {
+		log.Println(err)
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	log.Printf("login success: user_id=%s", userModel.ID)
+
+	jwtToken, err := common.CreateJWTToken(userModel)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"token": jwtToken})
 }
 
 func (uh *UserHandler) GetUsers(c *gin.Context) {
