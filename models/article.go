@@ -18,21 +18,3 @@ type Article struct {
 	Author   User      `json:"user"`
 	Comments []Comment `json:"comment" gorm:"foreignKey:AuthorID"`
 }
-
-type ArticleRepository interface {
-	PostArticle(article *Article) (*Article, error)
-	GetArticleByID(articleID int) (*Article, error)
-	GetArticles() ([]*Article, error)
-	// UpdateArticle(article *Article) (*Article, error)
-	// DeleteArticle(article *Article) (*Article, error)
-	// SearchArticle(text string) ([]*Article, error)
-}
-
-type ArticleUsecase interface {
-	PostArticle(article *Article) error
-	GetArticleByID(articleID int) (*Article, error)
-	GetArticles() ([]*Article, error)
-	// UpdateArticle(article *Article) (*Article, error)
-	// DeleteArticle(article *Article) (*Article, error)
-	// SearchArticle(text string) ([]*Article, error)
-}

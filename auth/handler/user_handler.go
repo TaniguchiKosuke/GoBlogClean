@@ -3,19 +3,20 @@ package handler
 import (
 	"log"
 	"net/http"
-	
+
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 
+	"GoBlogClean/auth"
 	"GoBlogClean/models"
 )
 
 type UserHandler struct {
-	userUsecase models.UserUsecase
+	userUsecase auth.UserUsecase
 }
 
-func NewUserHandler(userUsecase models.UserUsecase) UserHandler {
+func NewUserHandler(userUsecase auth.UserUsecase) UserHandler {
 	return UserHandler{userUsecase: userUsecase}
 }
 

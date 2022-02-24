@@ -1,17 +1,17 @@
 package injector
 
 import (
+	"GoBlogClean/auth"
 	"GoBlogClean/auth/handler"
 	"GoBlogClean/auth/repository"
 	"GoBlogClean/auth/usecase"
-	"GoBlogClean/models"
 )
 
-func InjectUserRepository() models.UserRepository {
+func InjectUserRepository() auth.UserRepository {
 	return repository.NewUserRepository(InjectDB())
 }
 
-func InjectUserUsecase() models.UserUsecase {
+func InjectUserUsecase() auth.UserUsecase {
 	return usecase.NewUserUsecase(InjectUserRepository())
 }
 

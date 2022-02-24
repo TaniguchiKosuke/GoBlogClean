@@ -1,17 +1,17 @@
 package injector
 
 import (
+	"GoBlogClean/article"
 	"GoBlogClean/article/handler"
 	"GoBlogClean/article/repository"
 	"GoBlogClean/article/usecase"
-	"GoBlogClean/models"
 )
 
-func InjectArticleRepository() models.ArticleRepository {
+func InjectArticleRepository() article.ArticleRepository {
 	return repository.NewArticleRepository(InjectDB())
 }
 
-func InjectArticleUsecase() models.ArticleUsecase {
+func InjectArticleUsecase() article.ArticleUsecase {
 	return usecase.NewArticleUsecase(InjectArticleRepository())
 }
 

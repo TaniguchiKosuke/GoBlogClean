@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"GoBlogClean/auth"
 	"GoBlogClean/config"
 	"GoBlogClean/models"
 )
@@ -9,7 +10,7 @@ type userRepository struct {
 	dbHandler *config.DBHandler
 }
 
-func NewUserRepository(dbHandler *config.DBHandler) models.UserRepository {
+func NewUserRepository(dbHandler *config.DBHandler) auth.UserRepository {
 	return &userRepository{dbHandler}
 }
 

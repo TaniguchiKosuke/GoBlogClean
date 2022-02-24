@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"GoBlogClean/article"
 	"GoBlogClean/models"
 	"log"
 	"net/http"
@@ -10,10 +11,10 @@ import (
 )
 
 type ArticleHandler struct {
-	articleUsecase models.ArticleUsecase
+	articleUsecase article.ArticleUsecase
 }
 
-func NewArticleHandler(articleUsecase models.ArticleUsecase) ArticleHandler {
+func NewArticleHandler(articleUsecase article.ArticleUsecase) ArticleHandler {
 	return ArticleHandler{articleUsecase: articleUsecase}
 }
 

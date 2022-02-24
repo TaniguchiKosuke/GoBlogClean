@@ -1,12 +1,15 @@
 package usecase
 
-import "GoBlogClean/models"
+import (
+	"GoBlogClean/article"
+	"GoBlogClean/models"
+)
 
 type articleUsecase struct {
-	articleRepository models.ArticleRepository
+	articleRepository article.ArticleRepository
 }
 
-func NewArticleUsecase(articleRepository models.ArticleRepository) models.ArticleUsecase {
+func NewArticleUsecase(articleRepository article.ArticleRepository) article.ArticleUsecase {
 	return &articleUsecase{articleRepository: articleRepository}
 }
 
