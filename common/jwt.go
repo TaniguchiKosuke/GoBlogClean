@@ -8,6 +8,8 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
+var jwtSecretKey = os.Getenv("JWT_SECRET_KEY")
+
 func CreateJWTToken(user *models.User) (string, error) {
 	token := jwt.New(jwt.GetSigningMethod("HS256"))
 
@@ -17,7 +19,7 @@ func CreateJWTToken(user *models.User) (string, error) {
 		"exp": time.Now().Add(time.Minute * 30).Unix(),
 	}
 
-	jwtSecretKey := os.Getenv("JWT_SECRET_KEY")
+	jwtSecretKey := jwtSecretKey
 
 	tokenString, err := token.SignedString([]byte(jwtSecretKey))
 	if err != nil {
@@ -25,4 +27,17 @@ func CreateJWTToken(user *models.User) (string, error) {
 	}
 
 	return tokenString, nil
+}
+
+func VerifyToken(tokenStr string) (*jwt.Token, error) {
+
+	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+		return []byte(jwtSecretKey), nil
+	})
+	if err != nil {
+		return  nil, err
+	}
+
+	return token, nil
+
 }
