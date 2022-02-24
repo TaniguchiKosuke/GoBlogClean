@@ -30,3 +30,12 @@ func (uu *userUsecase) GetUsers() ([]*models.User, error) {
 
 	return users, err
 }
+
+func (uu *userUsecase) GetUserByID(userID string) (*models.User, error) {
+	user, err := uu.userRepository.GetUserByID(userID)
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
+}

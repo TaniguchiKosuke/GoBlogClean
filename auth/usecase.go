@@ -8,4 +8,5 @@ type UserUsecase interface {
 	// Logout(*User) (*User, error)
 	// UpdateUser(*User) (*User, error)
 	GetUsers() ([]*models.User, error)
+	GetUserByID(userID string) (*models.User, error)
 }
