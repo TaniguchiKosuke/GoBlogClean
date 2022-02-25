@@ -3,7 +3,7 @@ package repository
 import (
 	"GoBlogClean/auth"
 	"GoBlogClean/config"
-	"GoBlogClean/models"
+	"GoBlogClean/domain"
 )
 
 type userRepository struct {
@@ -14,7 +14,7 @@ func NewUserRepository(dbHandler *config.DBHandler) auth.UserRepository {
 	return &userRepository{dbHandler}
 }
 
-func (ur *userRepository) CreateUser(user *models.User) (*models.User, error) {
+func (ur *userRepository) CreateUser(user *domain.User) (*domain.User, error) {
 	if err := ur.dbHandler.Conn.Create(&user).Error; err != nil {
 		return user, err
 	}
@@ -22,8 +22,8 @@ func (ur *userRepository) CreateUser(user *models.User) (*models.User, error) {
 	return user, nil
 }
 
-func (ur *userRepository) GetUsers() ([]*models.User, error) {
-	var users []*models.User
+func (ur *userRepository) GetUsers() ([]*domain.User, error) {
+	var users []*domain.User
 	if err := ur.dbHandler.Conn.Find(&users).Error; err != nil {
 		return users, err
 	}
@@ -31,8 +31,8 @@ func (ur *userRepository) GetUsers() ([]*models.User, error) {
 	return users, nil
 }
 
-func (ur *userRepository) GetUserByUsername(username string) (*models.User, error) {
-	var user *models.User
+func (ur *userRepository) GetUserByUsername(username string) (*domain.User, error) {
+	var user *domain.User
 	if err := ur.dbHandler.Conn.Where("username = ?", username).Find(&user).Error; err != nil {
 		return user, err
 	}

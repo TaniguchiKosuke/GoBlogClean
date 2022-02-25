@@ -1,12 +1,12 @@
 package auth
 
-import "GoBlogClean/models"
+import "GoBlogClean/domain"
 
 type UserRepository interface {
-	CreateUser(*models.User) (*models.User, error)
+	CreateUser(*domain.User) (*domain.User, error)
 	// Login(*User) (*User, error)
 	// Logout(*User) (*User, error)
 	// UpdateUser(*User) (*User, error)
-	GetUsers() ([]*models.User, error)
-	GetUserByUsername(username string) (*models.User, error)
+	GetUsers() ([]*domain.User, error)
+	GetUserByUsername(username string) (*domain.User, error)
 }

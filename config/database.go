@@ -6,7 +6,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"GoBlogClean/models"
+	"GoBlogClean/domain"
 )
 
 type DBHandler struct {
@@ -20,7 +20,7 @@ func NewDBHandler() *DBHandler {
 		return nil
 	}
 
-	if err = conn.AutoMigrate(&models.Article{}, &models.Comment{}, &models.User{}); err != nil {
+	if err = conn.AutoMigrate(&domain.Article{}, &domain.Comment{}, &domain.User{}); err != nil {
 		log.Println(err)
 		return nil
 	}

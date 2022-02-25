@@ -1,11 +1,11 @@
 package article
 
-import "GoBlogClean/models"
+import "GoBlogClean/domain"
 
 type ArticleRepository interface {
-	PostArticle(article *models.Article) (*models.Article, error)
-	GetArticleByID(articleID int) (*models.Article, error)
-	GetArticles() ([]*models.Article, error)
+	PostArticle(article *domain.Article) (*domain.Article, error)
+	GetArticleByID(articleID int) (*domain.Article, error)
+	GetArticles() ([]*domain.Article, error)
 	// UpdateArticle(article *Article) (*Article, error)
 	// DeleteArticle(article *Article) (*Article, error)
 	// SearchArticle(text string) ([]*Article, error)

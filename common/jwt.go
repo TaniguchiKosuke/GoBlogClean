@@ -1,7 +1,7 @@
 package common
 
 import (
-	"GoBlogClean/models"
+	"GoBlogClean/domain"
 	"os"
 	"time"
 
@@ -10,7 +10,7 @@ import (
 
 var jwtSecretKey = os.Getenv("JWT_SECRET_KEY")
 
-func CreateJWTToken(user *models.User) (string, error) {
+func CreateJWTToken(user *domain.User) (string, error) {
 	token := jwt.New(jwt.GetSigningMethod("HS256"))
 
 	token.Claims = jwt.MapClaims{

@@ -10,7 +10,7 @@ import (
 
 	"GoBlogClean/auth"
 	"GoBlogClean/common"
-	"GoBlogClean/models"
+	"GoBlogClean/domain"
 )
 
 type UserHandler struct {
@@ -22,7 +22,7 @@ func NewUserHandler(userUsecase auth.UserUsecase) UserHandler {
 }
 
 func (uh *UserHandler) Signup(c *gin.Context) {
-	var user *models.User
+	var user *domain.User
 	if err := c.BindJSON(&user); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
@@ -58,7 +58,7 @@ func (uh *UserHandler) Signup(c *gin.Context) {
 }
 
 func (uh *UserHandler) Login(c *gin.Context) {
-	var user *models.User
+	var user *domain.User
 	if err := c.BindJSON(&user); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
