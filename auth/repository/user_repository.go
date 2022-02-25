@@ -31,9 +31,9 @@ func (ur *userRepository) GetUsers() ([]*models.User, error) {
 	return users, nil
 }
 
-func (ur *userRepository) GetUserByID(userID string) (*models.User, error) {
+func (ur *userRepository) GetUserByUsername(username string) (*models.User, error) {
 	var user *models.User
-	if err := ur.dbHandler.Conn.Where("id = ?", userID).Find(&user).Error; err != nil {
+	if err := ur.dbHandler.Conn.Where("username = ?", username).Find(&user).Error; err != nil {
 		return user, err
 	}
 

@@ -29,7 +29,7 @@ func (uh *UserHandler) Signup(c *gin.Context) {
 		return
 	}
 
-	hashedBytePassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), 12)
+	hashedBytePassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
@@ -65,7 +65,7 @@ func (uh *UserHandler) Login(c *gin.Context) {
 		return
 	}
 
-	userModel, err := uh.userUsecase.GetUserByID(user.ID)
+	userModel, err := uh.userUsecase.GetUserByUsername(user.Username)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusInternalServerError, err.Error())

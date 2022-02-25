@@ -14,9 +14,9 @@ func CreateJWTToken(user *models.User) (string, error) {
 	token := jwt.New(jwt.GetSigningMethod("HS256"))
 
 	token.Claims = jwt.MapClaims{
-		"user_id": user.ID,
+		"user_id":  user.ID,
 		"username": user.Username,
-		"exp": time.Now().Add(time.Minute * 30).Unix(),
+		"exp":      time.Now().Add(time.Minute * 30).Unix(),
 	}
 
 	jwtSecretKey := jwtSecretKey
@@ -35,7 +35,7 @@ func VerifyToken(tokenStr string) (*jwt.Token, error) {
 		return []byte(jwtSecretKey), nil
 	})
 	if err != nil {
-		return  nil, err
+		return nil, err
 	}
 
 	return token, nil

@@ -20,7 +20,10 @@ func NewDBHandler() *DBHandler {
 		return nil
 	}
 
-	conn.AutoMigrate(&models.Article{}, &models.Comment{}, &models.User{})
+	if err = conn.AutoMigrate(&models.Article{}, &models.Comment{}, &models.User{}); err != nil {
+		log.Println(err)
+		return nil
+	}
 
 	dbHandler := new(DBHandler)
 	dbHandler.Conn = conn
