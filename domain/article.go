@@ -1,4 +1,4 @@
-package models
+package domain
 
 import (
 	"time"
@@ -16,5 +16,5 @@ type Article struct {
 	Content  string    `json:"content"`
 	AuthorID string    `json:"user_id"`
 	Author   User      `json:"user"`
-	Comments []Comment `json:"comment" gorm:"foreignKey:AuthorID"`
+	Comments []Comment `json:"comments" gorm:"foreignKey:AuthorID"`
 }

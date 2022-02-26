@@ -1,20 +1,20 @@
 package repository
 
 import (
-	"GoBlogClean/article"
 	"GoBlogClean/config"
-	"GoBlogClean/models"
+	"GoBlogClean/domain"
+	"GoBlogClean/pkg/blog"
 )
 
 type articleRepository struct {
 	config.DBHandler
 }
 
-func NewArticleRepository(dbHandler *config.DBHandler) article.ArticleRepository {
+func NewArticleRepository(dbHandler *config.DBHandler) blog.ArticleRepository {
 	return &articleRepository{*dbHandler}
 }
 
-func (ar *articleRepository) PostArticle(article *models.Article) (*models.Article, error) {
+func (ar *articleRepository) PostArticle(article *domain.Article) (*domain.Article, error) {
 	if err := ar.Conn.Create(&article).Error; err != nil {
 		return article, err
 	}
@@ -22,8 +22,8 @@ func (ar *articleRepository) PostArticle(article *models.Article) (*models.Artic
 	return article, nil
 }
 
-func (ar *articleRepository) GetArticles() ([]*models.Article, error) {
-	var articles []*models.Article
+func (ar *articleRepository) GetArticles() ([]*domain.Article, error) {
+	var articles []*domain.Article
 	if err := ar.Conn.Find(&articles).Error; err != nil {
 		return articles, err
 	}
@@ -31,8 +31,8 @@ func (ar *articleRepository) GetArticles() ([]*models.Article, error) {
 	return articles, nil
 }
 
-func (ar *articleRepository) GetArticleByID(articleID int) (*models.Article, error) {
-	var article *models.Article
+func (ar *articleRepository) GetArticleByID(articleID int) (*domain.Article, error) {
+	var article *domain.Article
 	if err := ar.Conn.Where("id = ?", articleID).Find(&article).Error; err != nil {
 		return article, err
 	}

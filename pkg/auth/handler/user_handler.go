@@ -8,9 +8,9 @@ import (
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 
-	"GoBlogClean/auth"
 	"GoBlogClean/common"
-	"GoBlogClean/models"
+	"GoBlogClean/domain"
+	"GoBlogClean/pkg/auth"
 )
 
 type UserHandler struct {
@@ -22,14 +22,14 @@ func NewUserHandler(userUsecase auth.UserUsecase) UserHandler {
 }
 
 func (uh *UserHandler) Signup(c *gin.Context) {
-	var user *models.User
+	var user *domain.User
 	if err := c.BindJSON(&user); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	hashedBytePassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), 12)
+	hashedBytePassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
@@ -58,14 +58,14 @@ func (uh *UserHandler) Signup(c *gin.Context) {
 }
 
 func (uh *UserHandler) Login(c *gin.Context) {
-	var user *models.User
+	var user *domain.User
 	if err := c.BindJSON(&user); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	userModel, err := uh.userUsecase.GetUserByID(user.ID)
+	userModel, err := uh.userUsecase.GetUserByUsername(user.Username)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusInternalServerError, err.Error())

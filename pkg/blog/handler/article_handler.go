@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"GoBlogClean/article"
-	"GoBlogClean/models"
+	"GoBlogClean/pkg/blog"
+	"GoBlogClean/pkg/blog/input"
 	"log"
 	"net/http"
 	"strconv"
@@ -11,22 +11,22 @@ import (
 )
 
 type ArticleHandler struct {
-	articleUsecase article.ArticleUsecase
+	articleUsecase blog.ArticleUsecase
 }
 
-func NewArticleHandler(articleUsecase article.ArticleUsecase) ArticleHandler {
+func NewArticleHandler(articleUsecase blog.ArticleUsecase) ArticleHandler {
 	return ArticleHandler{articleUsecase: articleUsecase}
 }
 
 func (ah *ArticleHandler) PostArticle(c *gin.Context) {
-	var article *models.Article
-	if err := c.BindJSON(&article); err != nil {
+	var requestBody *input.ArticleRequest
+	if err := c.BindJSON(&requestBody); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	if err := ah.articleUsecase.PostArticle(article); err != nil {
+	if err := ah.articleUsecase.PostArticle(requestBody); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return

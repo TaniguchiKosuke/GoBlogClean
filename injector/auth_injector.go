@@ -1,10 +1,10 @@
 package injector
 
 import (
-	"GoBlogClean/auth"
-	"GoBlogClean/auth/handler"
-	"GoBlogClean/auth/repository"
-	"GoBlogClean/auth/usecase"
+	"GoBlogClean/pkg/auth"
+	"GoBlogClean/pkg/auth/handler"
+	"GoBlogClean/pkg/auth/repository"
+	"GoBlogClean/pkg/auth/usecase"
 )
 
 func InjectUserRepository() auth.UserRepository {
