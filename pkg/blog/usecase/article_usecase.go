@@ -6,6 +6,7 @@ import (
 	"GoBlogClean/pkg/blog"
 	"GoBlogClean/pkg/blog/input"
 	blogOutput "GoBlogClean/pkg/blog/output"
+	"GoBlogClean/pkg/constant"
 )
 
 type articleUsecase struct {
@@ -42,17 +43,17 @@ func (au *articleUsecase) GetArticles() (*blogOutput.ArticleListResponse, error)
 	for _, article := range articles {
 		author := &userOutput.UserResponse{
 			ID:        article.AuthorID,
-			CreatedAt: article.CreatedAt.String(),
-			UpdatedAt: article.UpdatedAt.String(),
-			DeletedAt: article.DeletedAt.Time.String(),
+			CreatedAt: article.Author.CreatedAt.Format(constant.TimeLayout),
+			UpdatedAt: article.Author.UpdatedAt.Format(constant.TimeLayout),
+			DeletedAt: article.Author.DeletedAt.Time.Format(constant.TimeLayout),
 			Username:  article.Author.Username,
 		}
 
 		articleResponse := &blogOutput.ArticleResponse{
 			ID:        article.ID,
-			CreatedAt: article.CreatedAt.String(),
-			UpdatedAt: article.UpdatedAt.String(),
-			DeletedAt: article.DeletedAt.Time.String(),
+			CreatedAt: article.CreatedAt.Format(constant.TimeLayout),
+			UpdatedAt: article.UpdatedAt.Format(constant.TimeLayout),
+			DeletedAt: article.DeletedAt.Time.Format(constant.TimeLayout),
 			Title:     article.Title,
 			Content:   article.Content,
 			AuthorID:  article.AuthorID,
@@ -70,11 +71,31 @@ func (au *articleUsecase) GetArticles() (*blogOutput.ArticleListResponse, error)
 	return articleListResponse, nil
 }
 
-func (au *articleUsecase) GetArticleByID(articleID int) (*domain.Article, error) {
+func (au *articleUsecase) GetArticleByID(articleID int) (*blogOutput.ArticleResponse, error) {
 	article, err := au.articleRepository.GetArticleByID(articleID)
 	if err != nil {
-		return article, err
+		return &blogOutput.ArticleResponse{}, err
 	}
 
-	return article, nil
+	author := &userOutput.UserResponse{
+		ID:        article.Author.ID,
+		CreatedAt: article.Author.CreatedAt.Format(constant.TimeLayout),
+		UpdatedAt: article.Author.UpdatedAt.Format(constant.TimeLayout),
+		DeletedAt: article.Author.DeletedAt.Time.Format(constant.TimeLayout),
+		Username:  article.Author.Username,
+	}
+
+	articleResponse := &blogOutput.ArticleResponse{
+		ID:        article.ID,
+		CreatedAt: article.CreatedAt.Format(constant.TimeLayout),
+		UpdatedAt: article.UpdatedAt.Format(constant.TimeLayout),
+		DeletedAt: article.DeletedAt.Time.Format(constant.TimeLayout),
+		Title:     article.Title,
+		Content:   article.Content,
+		AuthorID:  article.AuthorID,
+		Author:    *author,
+		// Comments: ,
+	}
+
+	return articleResponse, nil
 }
