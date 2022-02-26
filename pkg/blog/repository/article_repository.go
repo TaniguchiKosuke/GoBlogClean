@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"GoBlogClean/pkg/article"
+	"GoBlogClean/pkg/blog"
 	"GoBlogClean/config"
 	"GoBlogClean/domain"
 )
@@ -10,7 +10,7 @@ type articleRepository struct {
 	config.DBHandler
 }
 
-func NewArticleRepository(dbHandler *config.DBHandler) article.ArticleRepository {
+func NewArticleRepository(dbHandler *config.DBHandler) blog.ArticleRepository {
 	return &articleRepository{*dbHandler}
 }
 

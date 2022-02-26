@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"GoBlogClean/pkg/article"
+	"GoBlogClean/pkg/blog"
 	"GoBlogClean/domain"
 	"log"
 	"net/http"
@@ -11,10 +11,10 @@ import (
 )
 
 type ArticleHandler struct {
-	articleUsecase article.ArticleUsecase
+	articleUsecase blog.ArticleUsecase
 }
 
-func NewArticleHandler(articleUsecase article.ArticleUsecase) ArticleHandler {
+func NewArticleHandler(articleUsecase blog.ArticleUsecase) ArticleHandler {
 	return ArticleHandler{articleUsecase: articleUsecase}
 }
 

@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	article_handler "GoBlogClean/pkg/article/handler"
+	article_handler "GoBlogClean/pkg/blog/handler"
 	auth_handler "GoBlogClean/pkg/auth/handler"
 	"GoBlogClean/injector"
 )
