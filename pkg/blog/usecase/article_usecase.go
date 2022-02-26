@@ -18,11 +18,11 @@ func NewArticleUsecase(articleRepository blog.ArticleRepository) blog.ArticleUse
 	return &articleUsecase{articleRepository: articleRepository}
 }
 
-func (au *articleUsecase) PostArticle(requestBody *input.ArticleRequest) error {
+func (au *articleUsecase) PostArticle(articleRequest *input.ArticleRequest) error {
 	// authorなどもここでdomainに渡す
 	article := &domain.Article{
-		Title:   requestBody.Title,
-		Content: requestBody.Content,
+		Title:   articleRequest.Title,
+		Content: articleRequest.Content,
 	}
 
 	_, err := au.articleRepository.PostArticle(article)

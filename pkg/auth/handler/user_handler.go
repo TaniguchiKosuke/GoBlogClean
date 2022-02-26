@@ -5,12 +5,12 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 
 	"GoBlogClean/common"
 	"GoBlogClean/domain"
 	"GoBlogClean/pkg/auth"
+	"GoBlogClean/pkg/auth/input"
 )
 
 type UserHandler struct {
@@ -22,33 +22,14 @@ func NewUserHandler(userUsecase auth.UserUsecase) UserHandler {
 }
 
 func (uh *UserHandler) Signup(c *gin.Context) {
-	var user *domain.User
-	if err := c.BindJSON(&user); err != nil {
+	var requestBody *input.UserRequest
+	if err := c.BindJSON(&requestBody); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	hashedBytePassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
-	if err != nil {
-		log.Println(err)
-		c.JSON(http.StatusBadRequest, err.Error())
-		return
-	}
-
-	user.Password = string(hashedBytePassword)
-
-	u, err := uuid.NewRandom()
-	if err != nil {
-		log.Println(err)
-		c.JSON(http.StatusBadRequest, err.Error())
-		return
-	}
-
-	uuidStr := u.String()
-	user.ID = uuidStr
-
-	if err := uh.userUsecase.CreateUser(user); err != nil {
+	if err := uh.userUsecase.CreateUser(requestBody); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
