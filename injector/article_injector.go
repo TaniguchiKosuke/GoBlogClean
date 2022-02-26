@@ -1,10 +1,10 @@
 package injector
 
 import (
-	"GoBlogClean/article"
-	"GoBlogClean/article/handler"
-	"GoBlogClean/article/repository"
-	"GoBlogClean/article/usecase"
+	"GoBlogClean/pkg/article"
+	"GoBlogClean/pkg/article/handler"
+	"GoBlogClean/pkg/article/repository"
+	"GoBlogClean/pkg/article/usecase"
 )
 
 func InjectArticleRepository() article.ArticleRepository {
