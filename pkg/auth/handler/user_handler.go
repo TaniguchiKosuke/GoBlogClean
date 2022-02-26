@@ -7,10 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 
-	"GoBlogClean/common"
 	"GoBlogClean/domain"
 	"GoBlogClean/pkg/auth"
 	"GoBlogClean/pkg/auth/input"
+	"GoBlogClean/pkg/util"
 )
 
 type UserHandler struct {
@@ -61,7 +61,7 @@ func (uh *UserHandler) Login(c *gin.Context) {
 
 	log.Printf("login success: user_id=%s", userModel.ID)
 
-	jwtToken, err := common.CreateJWTToken(userModel)
+	jwtToken, err := util.CreateJWTToken(userModel)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusInternalServerError, err.Error())
