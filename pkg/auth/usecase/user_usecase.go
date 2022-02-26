@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"GoBlogClean/pkg/auth"
 	"GoBlogClean/domain"
+	"GoBlogClean/pkg/auth"
 )
 
 type userUsecase struct {

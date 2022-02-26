@@ -1,9 +1,12 @@
 package blog
 
-import "GoBlogClean/domain"
+import (
+	"GoBlogClean/domain"
+	"GoBlogClean/pkg/blog/input"
+)
 
 type ArticleUsecase interface {
-	PostArticle(article *domain.Article) error
+	PostArticle(article *input.ArticleRequest) error
 	GetArticleByID(articleID int) (*domain.Article, error)
 	GetArticles() ([]*domain.Article, error)
 	// UpdateArticle(article *Article) (*Article, error)

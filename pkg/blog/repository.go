@@ -1,6 +1,8 @@
 package blog
 
-import "GoBlogClean/domain"
+import (
+	"GoBlogClean/domain"
+)
 
 type ArticleRepository interface {
 	PostArticle(article *domain.Article) (*domain.Article, error)

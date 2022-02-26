@@ -8,9 +8,9 @@ import (
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 
-	"GoBlogClean/pkg/auth"
 	"GoBlogClean/common"
 	"GoBlogClean/domain"
+	"GoBlogClean/pkg/auth"
 )
 
 type UserHandler struct {

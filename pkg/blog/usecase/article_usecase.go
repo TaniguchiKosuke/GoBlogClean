@@ -1,8 +1,9 @@
 package usecase
 
 import (
-	"GoBlogClean/pkg/blog"
 	"GoBlogClean/domain"
+	"GoBlogClean/pkg/blog"
+	"GoBlogClean/pkg/blog/input"
 )
 
 type articleUsecase struct {
@@ -13,7 +14,13 @@ func NewArticleUsecase(articleRepository blog.ArticleRepository) blog.ArticleUse
 	return &articleUsecase{articleRepository: articleRepository}
 }
 
-func (au *articleUsecase) PostArticle(article *domain.Article) error {
+func (au *articleUsecase) PostArticle(requestBody *input.ArticleRequest) error {
+	// authorなどもここでdomainに渡す
+	article := &domain.Article{
+		Title:   requestBody.Title,
+		Content: requestBody.Content,
+	}
+
 	_, err := au.articleRepository.PostArticle(article)
 	if err != nil {
 		return err

@@ -2,7 +2,7 @@ package handler
 
 import (
 	"GoBlogClean/pkg/blog"
-	"GoBlogClean/domain"
+	"GoBlogClean/pkg/blog/input"
 	"log"
 	"net/http"
 	"strconv"
@@ -19,14 +19,14 @@ func NewArticleHandler(articleUsecase blog.ArticleUsecase) ArticleHandler {
 }
 
 func (ah *ArticleHandler) PostArticle(c *gin.Context) {
-	var article *domain.Article
-	if err := c.BindJSON(&article); err != nil {
+	var requestBody *input.ArticleRequest
+	if err := c.BindJSON(&requestBody); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	if err := ah.articleUsecase.PostArticle(article); err != nil {
+	if err := ah.articleUsecase.PostArticle(requestBody); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return

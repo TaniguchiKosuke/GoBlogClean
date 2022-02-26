@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"GoBlogClean/pkg/auth"
 	"GoBlogClean/config"
 	"GoBlogClean/domain"
+	"GoBlogClean/pkg/auth"
 )
 
 type userRepository struct {

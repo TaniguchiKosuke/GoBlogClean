@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"GoBlogClean/pkg/blog"
 	"GoBlogClean/config"
 	"GoBlogClean/domain"
+	"GoBlogClean/pkg/blog"
 )
 
 type articleRepository struct {

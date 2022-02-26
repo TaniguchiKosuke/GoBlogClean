@@ -5,9 +5,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	article_handler "GoBlogClean/pkg/blog/handler"
-	auth_handler "GoBlogClean/pkg/auth/handler"
 	"GoBlogClean/injector"
+	auth_handler "GoBlogClean/pkg/auth/handler"
+	article_handler "GoBlogClean/pkg/blog/handler"
 )
 
 func main() {
