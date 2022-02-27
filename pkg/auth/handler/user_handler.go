@@ -32,7 +32,7 @@ func (uh *UserHandler) Signup(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"status": " succeeded"})
+	c.JSON(http.StatusOK, gin.H{"message": " succeeded"})
 }
 
 func (uh *UserHandler) Login(c *gin.Context) {
@@ -47,6 +47,12 @@ func (uh *UserHandler) Login(c *gin.Context) {
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if loginResponse == nil {
+		log.Println("user not found")
+		c.JSON(http.StatusNotFound, gin.H{"message": "user not found"})
 		return
 	}
 
@@ -78,5 +84,5 @@ func (uh *UserHandler) UpdateUsername(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"status": "succeeded"})
+	c.JSON(http.StatusOK, gin.H{"message": "succeeded"})
 }

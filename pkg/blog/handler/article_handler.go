@@ -32,7 +32,7 @@ func (ah *ArticleHandler) PostArticle(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"status": " succeeded"})
+	c.JSON(http.StatusOK, gin.H{"message": " succeeded"})
 }
 
 func (ah *ArticleHandler) GetArticles(c *gin.Context) {

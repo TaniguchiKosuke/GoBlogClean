@@ -77,7 +77,7 @@ func (uu *userUsecase) GetUsers() (*output.GetUsersResponse, error) {
 func (uu *userUsecase) Login(loginRequest *input.LoginRequest) (*output.LoginResponse, error) {
 	user, err := uu.userRepository.GetUserByUsername(loginRequest.Username)
 	if err != nil {
-		return &output.LoginResponse{}, err
+		return nil, err
 	}
 
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(loginRequest.Password)); err != nil {
