@@ -3,7 +3,7 @@ package util
 import (
 	"os"
 	"time"
-	
+
 	"github.com/dgrijalva/jwt-go"
 
 	"GoBlogClean/pkg/constant"
@@ -15,9 +15,10 @@ func CreateJWTToken(userID string, username string) (string, error) {
 	token := jwt.New(jwt.GetSigningMethod("HS256"))
 
 	token.Claims = jwt.MapClaims{
-		"user_id":  userID,
-		"username": username,
-		"exp":      time.Now().Add(time.Minute * constant.TokenExpirationMinute).Unix(),
+		"sub":  userID,
+		"name": username,
+		"iat":  time.Now(),
+		"exp":  time.Now().Add(time.Minute * constant.TokenExpirationMinute).Unix(),
 	}
 
 	jwtSecretKey := jwtSecretKey
