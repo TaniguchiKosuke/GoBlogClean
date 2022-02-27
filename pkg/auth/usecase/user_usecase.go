@@ -19,8 +19,8 @@ func NewUserUsecase(userRepository auth.UserRepository) auth.UserUsecase {
 	return &userUsecase{userRepository: userRepository}
 }
 
-func (uu *userUsecase) Signup(userRequest *input.UserRequest) error {
-	hashedBytePassword, err := bcrypt.GenerateFromPassword([]byte(userRequest.Password), bcrypt.DefaultCost)
+func (uu *userUsecase) Signup(signupRequest *input.SignupRequest) error {
+	hashedBytePassword, err := bcrypt.GenerateFromPassword([]byte(signupRequest.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
 	}
@@ -33,7 +33,7 @@ func (uu *userUsecase) Signup(userRequest *input.UserRequest) error {
 
 	user := &domain.User{
 		ID:       uuidStr,
-		Username: userRequest.Username,
+		Username: signupRequest.Username,
 		Password: string(hashedBytePassword),
 	}
 

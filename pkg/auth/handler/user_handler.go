@@ -19,7 +19,7 @@ func NewUserHandler(userUsecase auth.UserUsecase) UserHandler {
 }
 
 func (uh *UserHandler) Signup(c *gin.Context) {
-	var requestBody *input.UserRequest
+	var requestBody *input.SignupRequest
 	if err := c.BindJSON(&requestBody); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())

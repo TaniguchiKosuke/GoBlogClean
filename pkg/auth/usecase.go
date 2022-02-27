@@ -7,7 +7,7 @@ import (
 )
 
 type UserUsecase interface {
-	Signup(*input.UserRequest) error
+	Signup(*input.SignupRequest) error
 	// Login(*User) (*User, error)
 	// Logout(*User) (*User, error)
 	// UpdateUser(*User) (*User, error)
