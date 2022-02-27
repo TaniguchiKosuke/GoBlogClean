@@ -12,3 +12,7 @@ type UserResponse struct {
 type LoginResponse struct {
 	Token string `json:"token"`
 }
+
+type GetUsersResponse struct {
+	Users []*UserResponse `json:"users"`
+}

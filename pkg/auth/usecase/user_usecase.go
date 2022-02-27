@@ -1,6 +1,8 @@
 package usecase
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 
@@ -45,13 +47,31 @@ func (uu *userUsecase) Signup(signupRequest *input.SignupRequest) error {
 	return nil
 }
 
-func (uu *userUsecase) GetUsers() ([]*domain.User, error) {
+func (uu *userUsecase) GetUsers() (*output.GetUsersResponse, error) {
 	users, err := uu.userRepository.GetUsers()
 	if err != nil {
-		return users, err
+		return &output.GetUsersResponse{}, err
 	}
 
-	return users, err
+	usersResponse := make([]*output.UserResponse, 0, len(users))
+
+	for _, user := range users {
+		userResponse := &output.UserResponse{
+			ID:        user.ID,
+			CreatedAt: user.CreatedAt.Format(time.RFC3339),
+			UpdatedAt: user.UpdatedAt.Format(time.RFC3339),
+			DeletedAt: user.DeletedAt.Time.Format(time.RFC3339),
+			Username:  user.Username,
+		}
+
+		usersResponse = append(usersResponse, userResponse)
+	}
+
+	getUsersResponse := &output.GetUsersResponse{
+		Users: usersResponse,
+	}
+
+	return getUsersResponse, err
 }
 
 func (uu *userUsecase) Login(loginRequest *input.LoginRequest) (*output.LoginResponse, error) {
