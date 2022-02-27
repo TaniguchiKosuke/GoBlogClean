@@ -1,10 +1,18 @@
 package handler
 
-import "github.com/gin-gonic/gin"
+import (
+	"GoBlogClean/pkg/middleware"
+
+	"github.com/gin-gonic/gin"
+)
 
 func InitUserRouting(engine *gin.Engine, handler *UserHandler) {
 	engine.POST("/auth/login", handler.Login)
 	engine.POST("/auth/signup", handler.Signup)
-	engine.GET("/auth/users", handler.GetUsers)
-	engine.PUT("auth/update", handler.UpdateUsername)
+
+	loginRequired := engine.Group("/", middleware.Authenticate())
+	{
+		loginRequired.GET("/auth/users", handler.GetUsers)
+		loginRequired.PUT("auth/update", handler.UpdateUsername)
+	}
 }
