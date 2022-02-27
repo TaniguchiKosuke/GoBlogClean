@@ -3,13 +3,14 @@ package auth
 import (
 	"GoBlogClean/domain"
 	"GoBlogClean/pkg/auth/input"
+	"GoBlogClean/pkg/auth/output"
 )
 
 type UserUsecase interface {
-	CreateUser(*input.UserRequest) error
+	Signup(*input.UserRequest) error
 	// Login(*User) (*User, error)
 	// Logout(*User) (*User, error)
 	// UpdateUser(*User) (*User, error)
 	GetUsers() ([]*domain.User, error)
-	GetUserByUsername(username string) (*domain.User, error)
+	Login(*input.LoginRequest) (*output.LoginResponse, error)
 }

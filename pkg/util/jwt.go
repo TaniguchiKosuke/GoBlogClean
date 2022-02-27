@@ -1,7 +1,6 @@
 package util
 
 import (
-	"GoBlogClean/domain"
 	"os"
 	"time"
 
@@ -10,12 +9,12 @@ import (
 
 var jwtSecretKey = os.Getenv("JWT_SECRET_KEY")
 
-func CreateJWTToken(user *domain.User) (string, error) {
+func CreateJWTToken(userID string, username string) (string, error) {
 	token := jwt.New(jwt.GetSigningMethod("HS256"))
 
 	token.Claims = jwt.MapClaims{
-		"user_id":  user.ID,
-		"username": user.Username,
+		"user_id":  userID,
+		"username": username,
 		"exp":      time.Now().Add(time.Minute * 30).Unix(),
 	}
 
