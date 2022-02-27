@@ -9,7 +9,7 @@ type UserUsecase interface {
 	Signup(*input.SignupRequest) error
 	// Login(*User) (*User, error)
 	// Logout(*User) (*User, error)
-	// UpdateUser(*User) (*User, error)
+	UpdateUsername(*input.UpdateUsernameRequest) error
 	GetUsers() (*output.GetUsersResponse, error)
 	Login(*input.LoginRequest) (*output.LoginResponse, error)
 }

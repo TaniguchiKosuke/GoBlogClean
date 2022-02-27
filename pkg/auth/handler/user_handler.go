@@ -63,3 +63,20 @@ func (uh *UserHandler) GetUsers(c *gin.Context) {
 
 	c.JSON(http.StatusOK, users)
 }
+
+func (uh *UserHandler) UpdateUsername(c *gin.Context) {
+	var requestBody *input.UpdateUsernameRequest
+	if err := c.BindJSON(&requestBody); err != nil {
+		log.Println(err)
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if err := uh.userUsecase.UpdateUsername(requestBody); err != nil {
+		log.Println(err)
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"status": "succeeded"})
+}

@@ -95,3 +95,17 @@ func (uu *userUsecase) Login(loginRequest *input.LoginRequest) (*output.LoginRes
 
 	return loginResponse, nil
 }
+
+func (uu *userUsecase) UpdateUsername(userRequest *input.UpdateUsernameRequest) error {
+	user := &domain.User{
+		ID:       userRequest.ID,
+		Username: userRequest.Username,
+	}
+
+	_, err := uu.userRepository.UpdateUsername(user)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
