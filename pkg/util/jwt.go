@@ -3,8 +3,10 @@ package util
 import (
 	"os"
 	"time"
-
+	
 	"github.com/dgrijalva/jwt-go"
+
+	"GoBlogClean/pkg/constant"
 )
 
 var jwtSecretKey = os.Getenv("JWT_SECRET_KEY")
@@ -15,7 +17,7 @@ func CreateJWTToken(userID string, username string) (string, error) {
 	token.Claims = jwt.MapClaims{
 		"user_id":  userID,
 		"username": username,
-		"exp":      time.Now().Add(time.Minute * 30).Unix(),
+		"exp":      time.Now().Add(time.Minute * constant.TokenExpirationMinute).Unix(),
 	}
 
 	jwtSecretKey := jwtSecretKey
