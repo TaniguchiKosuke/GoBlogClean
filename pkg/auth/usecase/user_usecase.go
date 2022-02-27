@@ -3,6 +3,10 @@ package usecase
 import (
 	"GoBlogClean/domain"
 	"GoBlogClean/pkg/auth"
+	"GoBlogClean/pkg/auth/input"
+
+	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type userUsecase struct {
@@ -13,8 +17,25 @@ func NewUserUsecase(userRepository auth.UserRepository) auth.UserUsecase {
 	return &userUsecase{userRepository: userRepository}
 }
 
-func (uu *userUsecase) CreateUser(user *domain.User) error {
-	_, err := uu.userRepository.CreateUser(user)
+func (uu *userUsecase) CreateUser(userRequest *input.UserRequest) error {
+	hashedBytePassword, err := bcrypt.GenerateFromPassword([]byte(userRequest.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+
+	u, err := uuid.NewRandom()
+	if err != nil {
+		return err
+	}
+	uuidStr := u.String()
+
+	user := &domain.User{
+		ID:       uuidStr,
+		Username: userRequest.Username,
+		Password: string(hashedBytePassword),
+	}
+
+	_, err = uu.userRepository.CreateUser(user)
 	if err != nil {
 		return err
 	}
