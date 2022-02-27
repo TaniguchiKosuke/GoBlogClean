@@ -19,7 +19,7 @@ func NewArticleHandler(articleUsecase blog.ArticleUsecase) ArticleHandler {
 }
 
 func (ah *ArticleHandler) PostArticle(c *gin.Context) {
-	var requestBody *input.ArticleRequest
+	var requestBody *input.PostArticleRequest
 	if err := c.BindJSON(&requestBody); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())

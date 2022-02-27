@@ -18,7 +18,7 @@ func NewArticleUsecase(articleRepository blog.ArticleRepository) blog.ArticleUse
 	return &articleUsecase{articleRepository: articleRepository}
 }
 
-func (au *articleUsecase) PostArticle(articleRequest *input.ArticleRequest) error {
+func (au *articleUsecase) PostArticle(articleRequest *input.PostArticleRequest) error {
 	// authorなどもここでdomainに渡す
 	article := &domain.Article{
 		Title:   articleRequest.Title,
@@ -33,10 +33,10 @@ func (au *articleUsecase) PostArticle(articleRequest *input.ArticleRequest) erro
 	return nil
 }
 
-func (au *articleUsecase) GetArticles() (*blogOutput.ArticleListResponse, error) {
+func (au *articleUsecase) GetArticles() (*blogOutput.GetArticlesResponse, error) {
 	articles, err := au.articleRepository.GetArticles()
 	if err != nil {
-		return &blogOutput.ArticleListResponse{}, nil
+		return &blogOutput.GetArticlesResponse{}, nil
 	}
 
 	articleList := make([]*blogOutput.ArticleResponse, 0, len(articles))
@@ -65,7 +65,7 @@ func (au *articleUsecase) GetArticles() (*blogOutput.ArticleListResponse, error)
 		articleList = append(articleList, articleResponse)
 	}
 
-	articleListResponse := &blogOutput.ArticleListResponse{
+	articleListResponse := &blogOutput.GetArticlesResponse{
 		ArticleResponse: articleList,
 	}
 

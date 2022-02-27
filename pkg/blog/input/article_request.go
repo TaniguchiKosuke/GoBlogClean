@@ -1,6 +1,6 @@
 package input
 
-type ArticleRequest struct {
+type PostArticleRequest struct {
 	Title   string `json:"title"`
 	Content string `json:"content"`
 }

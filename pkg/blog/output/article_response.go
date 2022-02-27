@@ -4,7 +4,7 @@ import (
 	userOutput "GoBlogClean/pkg/auth/output"
 )
 
-type ArticleListResponse struct {
+type GetArticlesResponse struct {
 	ArticleResponse []*ArticleResponse `json:"articles"`
 }
 
