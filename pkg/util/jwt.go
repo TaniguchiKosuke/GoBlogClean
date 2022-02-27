@@ -41,5 +41,14 @@ func VerifyToken(tokenStr string) (*jwt.Token, error) {
 	}
 
 	return token, nil
+}
 
+func GetUserIDFromJWT(tokenStr string) (string, error) {
+	token, err := VerifyToken(tokenStr)
+	if err != nil {
+		return "", err
+	}
+
+	jwtClaims := token.Claims.(jwt.MapClaims)
+	return jwtClaims["sub"].(string), nil
 }
