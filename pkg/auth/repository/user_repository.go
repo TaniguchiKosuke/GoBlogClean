@@ -39,3 +39,11 @@ func (ur *userRepository) GetUserByUsername(username string) (*domain.User, erro
 
 	return user, nil
 }
+
+func (ur *userRepository) UpdateUsername(user *domain.User) (*domain.User, error) {
+	if err := ur.dbHandler.Conn.Model(&user).Update("username", user.Username).Error; err != nil {
+		return user, err
+	}
+
+	return user, nil
+}

@@ -5,12 +5,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"golang.org/x/crypto/bcrypt"
 
-	"GoBlogClean/domain"
 	"GoBlogClean/pkg/auth"
 	"GoBlogClean/pkg/auth/input"
-	"GoBlogClean/pkg/util"
 )
 
 type UserHandler struct {
@@ -22,53 +19,44 @@ func NewUserHandler(userUsecase auth.UserUsecase) UserHandler {
 }
 
 func (uh *UserHandler) Signup(c *gin.Context) {
-	var requestBody *input.UserRequest
+	var requestBody *input.SignupRequest
 	if err := c.BindJSON(&requestBody); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	if err := uh.userUsecase.CreateUser(requestBody); err != nil {
+	if err := uh.userUsecase.Signup(requestBody); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"status": " succeeded"})
+	c.JSON(http.StatusOK, gin.H{"message": " succeeded"})
 }
 
 func (uh *UserHandler) Login(c *gin.Context) {
-	var user *domain.User
-	if err := c.BindJSON(&user); err != nil {
+	var requestBody *input.LoginRequest
+	if err := c.BindJSON(&requestBody); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	userModel, err := uh.userUsecase.GetUserByUsername(user.Username)
+	loginResponse, err := uh.userUsecase.Login(requestBody)
 	if err != nil {
 		log.Println(err)
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	if err := bcrypt.CompareHashAndPassword([]byte(userModel.Password), []byte(user.Password)); err != nil {
-		log.Println(err)
-		c.JSON(http.StatusInternalServerError, err.Error())
+	if loginResponse == nil {
+		log.Println("user not found")
+		c.JSON(http.StatusNotFound, gin.H{"message": "user not found"})
 		return
 	}
 
-	log.Printf("login success: user_id=%s", userModel.ID)
-
-	jwtToken, err := util.CreateJWTToken(userModel)
-	if err != nil {
-		log.Println(err)
-		c.JSON(http.StatusInternalServerError, err.Error())
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"token": jwtToken})
+	c.JSON(http.StatusOK, loginResponse)
 }
 
 func (uh *UserHandler) GetUsers(c *gin.Context) {
@@ -80,4 +68,21 @@ func (uh *UserHandler) GetUsers(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, users)
+}
+
+func (uh *UserHandler) UpdateUsername(c *gin.Context) {
+	var requestBody *input.UpdateUsernameRequest
+	if err := c.BindJSON(&requestBody); err != nil {
+		log.Println(err)
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if err := uh.userUsecase.UpdateUsername(requestBody); err != nil {
+		log.Println(err)
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "succeeded"})
 }
