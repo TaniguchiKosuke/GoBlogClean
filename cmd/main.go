@@ -5,14 +5,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"GoBlogClean/injector"
 	auth_handler "GoBlogClean/pkg/auth/handler"
 	article_handler "GoBlogClean/pkg/blog/handler"
+	"GoBlogClean/pkg/di"
 )
 
 func main() {
-	articleHandler := injector.InjectArticleHandler()
-	authHandler := injector.InjectUserHandler()
+	articleHandler := di.InjectArticleHandler()
+	authHandler := di.InjectUserHandler()
 	engine := gin.Default()
 	article_handler.InitArticleRouting(engine, &articleHandler)
 	auth_handler.InitUserRouting(engine, &authHandler)
